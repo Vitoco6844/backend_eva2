@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pulso Tickets. Conciertos, festivales y experiencias en vivo.">
+  <link rel="icon" href="data:,">
+  <title>{% block title %}Pulso Tickets | Conciertos{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <script src="{% static 'vendor/lucide.min.js' %}" defer></script>
+  <script src="{% static 'js/common.js' %}" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body data-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}" data-organizer="{{ request.user.is_organizer|yesno:'true,false' }}">
+  <a class="skip-link" href="#main">Ir al contenido</a>
+  <!-- Navegacion HTML; la API solo se consume desde los scripts. -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{% url 'web:home' %}" aria-label="Pulso Tickets, inicio"><i data-lucide="audio-lines"></i><span>PULSO<span class="brand-small">TICKETS</span></span></a>
+      <button class="icon-button mobile-menu" type="button" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="main-nav"><i data-lucide="menu"></i></button>
+      <nav id="main-nav" aria-label="Principal">
+        <a href="{% url 'web:home' %}">Eventos</a>
+        {% if request.user.is_authenticated %}
+          {% if request.user.is_organizer %}<a href="{% url 'web:manage-home' %}"><i data-lucide="layout-dashboard"></i>Gestion</a>
+          {% else %}<a href="{% url 'web:purchases' %}"><i data-lucide="ticket"></i>Mis compras</a><a href="{% url 'web:cart' %}"><i data-lucide="shopping-bag"></i>Carrito</a>{% endif %}
+          <span class="account-name"><i data-lucide="circle-user-round"></i>{{ request.user.username }}</span>
+          <button type="button" class="icon-button" data-logout title="Cerrar sesion" aria-label="Cerrar sesion"><i data-lucide="log-out"></i></button>
+        {% else %}<a class="button compact" href="{% url 'web:login' %}"><i data-lucide="user-round"></i>Ingresar</a>{% endif %}
+      </nav>
+    </div>
+  </header>
+  <main id="main">{% block content %}{% endblock %}</main>
+  <footer class="site-footer"><div class="container footer-inner"><div><strong>PULSO TICKETS</strong><p>La proxima vez, vive el concierto.</p></div><div><p>Proyecto academico · Eventos y pagos de demostracion</p><p>{{ student_name }} · {{ student_section }} · {{ student_year }}</p></div></div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <!-- Confirmacion accesible para acciones irreversibles. -->
+  <dialog id="confirm-dialog"><form method="dialog"><h2 id="confirm-title">Confirmar accion</h2><p id="confirm-message"></p><label id="confirm-reason-label" hidden>Motivo<textarea id="confirm-reason" maxlength="500" rows="3"></textarea></label><div class="actions"><button class="button secondary" value="cancel" formnovalidate>Volver</button><button class="button danger" value="confirm">Confirmar</button></div></form></dialog>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

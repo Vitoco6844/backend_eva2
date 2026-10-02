@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}Mis compras | Pulso Tickets{% endblock %}
+{% block content %}
+<!-- Compras paginadas y acceso a las entradas individuales del cliente. -->
+<section class="container page-space">
+  <div class="section-heading"><div><p class="eyebrow">TU AGENDA EN VIVO</p><h1>Mis compras</h1></div><a class="button secondary" href="{% url 'web:tickets' %}"><i data-lucide="ticket"></i>Mis entradas</a></div>
+  <div class="list-toolbar"><label>Estado<select id="purchase-status"><option value="">Todos</option><option value="PENDIENTE">Pendiente</option><option value="PAGADO">Pagado</option><option value="ENTREGADO">Entregado</option><option value="CANCELADO">Cancelado</option></select></label></div>
+  <div id="page-error" class="notice error" role="alert" hidden></div>
+  <div id="purchases" aria-live="polite"></div><div id="pagination" class="pagination"></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/purchases.js' %}" defer></script>{% endblock %}

@@ -1,0 +1,27 @@
+# Configuracion local, credenciales y herramientas que se recrean al instalar.
+.env
+.env.*
+!.env.example
+.venv/
+env/
+.runtime/
+.local/
+media/
+staticfiles/
+__pycache__/
+*.py[cod]
+.coverage
+htmlcov/
+.pytest_cache/
+*.log
+node_modules/
+test-results/
+playwright-report/
+# Respaldos y claves privadas no forman parte del codigo entregable.
+*.sqlite3
+*.sqlite3-journal
+*.sql
+*.dump
+*.backup
+*.pem
+*.key

@@ -1,0 +1,6 @@
+{
+  "name": "pulso-tickets-ui-tests",
+  "private": true,
+  "scripts": {"test:ui": "node scripts/ui_smoke.cjs"},
+  "devDependencies": {"playwright": "1.62.1"}
+}

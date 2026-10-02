@@ -1,0 +1,5 @@
+{% extends 'manage/base.html' %}{% load static %}
+{# Swagger privado y local; sus peticiones conservan JWT y CSRF. #}
+{% block head %}<link rel="stylesheet" href="{% static 'drf_spectacular_sidecar/swagger-ui-dist/swagger-ui.css' %}">{% endblock %}
+{% block management %}<p class="eyebrow">SOLO ORGANIZADORES</p><h1>Documentacion</h1><div id="swagger-ui"></div>{% endblock %}
+{% block scripts %}<script src="{% static 'drf_spectacular_sidecar/swagger-ui-dist/swagger-ui-bundle.js' %}" defer></script><script src="{% static 'js/docs.js' %}" defer></script>{% endblock %}

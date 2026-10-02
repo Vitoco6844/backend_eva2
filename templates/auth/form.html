@@ -1,0 +1,12 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}{% if register %}Crear cuenta{% else %}Ingresar{% endif %} | Pulso Tickets{% endblock %}
+{% block content %}
+<!-- Un formulario para cada modo; el servidor valida credenciales y privilegios. -->
+<div class="container auth-layout"><div class="auth-visual"><img src="{% static 'images/live.png' %}" alt="Banda en un escenario de concierto"><p>Hay momentos<br>que se viven en vivo.</p></div><section class="auth-panel"><p class="eyebrow">TU CUENTA PULSO</p><h1>{% if register %}Crea tu cuenta{% else %}Que bueno verte{% endif %}</h1><p class="muted">{% if register %}Tus conciertos y tus entradas, en un solo lugar.{% else %}Ingresa para continuar con tu experiencia.{% endif %}</p><div id="page-error" class="notice error" role="alert" hidden></div>
+<form id="auth-form" data-mode="{% if register %}registro{% else %}login{% endif %}">{% csrf_token %}
+{% if register %}<div class="field-pair"><label>Nombre<input name="first_name" autocomplete="given-name" maxlength="150" required></label><label>Apellido<input name="last_name" autocomplete="family-name" maxlength="150" required></label></div><label>Correo electronico<input name="email" type="email" autocomplete="email" required maxlength="254"></label>{% endif %}
+<label>Usuario<input name="username" autocomplete="username" maxlength="150" required></label><label>Contrasena<span class="password-field"><input name="password" type="password" autocomplete="{% if register %}new-password{% else %}current-password{% endif %}" {% if register %}minlength="10"{% endif %} required><button class="icon-button" type="button" data-show-password title="Mostrar contrasena" aria-label="Mostrar contrasena"><i data-lucide="eye"></i></button></span></label>
+{% if register %}<p class="caption">Al menos 10 caracteres. Evita claves comunes o parecidas a tu usuario.</p><label>Confirmar contrasena<input name="password_confirmation" type="password" autocomplete="new-password" required minlength="10"></label>{% endif %}
+<button type="submit" class="button full">{% if register %}Crear cuenta{% else %}Ingresar{% endif %}<i data-lucide="arrow-right"></i></button></form>
+<p class="auth-switch">{% if register %}¿Ya tienes cuenta? <a href="{% url 'web:login' %}">Ingresar</a>{% else %}¿Primera vez? <a href="{% url 'web:register' %}">Crear cuenta</a>{% endif %}</p></section></div>
+{% endblock %}{% block scripts %}<script src="{% static 'js/auth.js' %}" defer></script>{% endblock %}

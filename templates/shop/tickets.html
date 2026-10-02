@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% load static %}
+{# Listado privado por unidad, separado del historial de compras. #}
+{% block title %}Mis entradas | Pulso Tickets{% endblock %}
+{% block content %}<section class="container page-space"><div class="section-heading"><div><p class="eyebrow">TU AGENDA EN VIVO</p><h1>Mis entradas</h1></div><a class="button secondary" href="{% url 'web:purchases' %}"><i data-lucide="receipt"></i>Mis compras</a></div><div id="page-error" class="notice error" role="alert" hidden></div><div id="ticket-list" aria-live="polite"></div><div id="pagination" class="pagination"></div></section>{% endblock %}
+{% block scripts %}<script src="{% static 'js/tickets.js' %}" defer></script>{% endblock %}

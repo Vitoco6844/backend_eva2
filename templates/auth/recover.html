@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% load static %}
+{# No contiene datos privados: solo intenta renovar el JWT antes del ingreso. #}
+{% block content %}<section class="container empty-state"><i data-lucide="loader-circle"></i><h1>Comprobando tu sesion</h1><p id="recovery-message">Un momento, por favor.</p><a href="{% url 'web:login' %}" class="button secondary">Ingresar</a></section>{% endblock %}
+{% block scripts %}<script src="{% static 'js/recover.js' %}" defer></script>{% endblock %}
